@@ -23,17 +23,22 @@ estabelecimentos_exemplo = [
     }
 ]
 
+""" Valida se o input de estado do usuario é valido """
 def validar_estado(estado):
     return estado.upper() in ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR",
                                "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
 
+""" Exibe a interface do menu para o usuario """
 def exibir_menu_principal():
     print("\n=== Menu Health Spotter === \n"
           + "1. Buscar Serviços de Saúde Próximos \n"
           + "2. Adicionar Estabelecimento \n" 
           + "3. Remover Estabelecimento \n"
-          + "4. Sair")
+          + "4. Atualizar Estabelecimento \n"
+          + "5. Sair")
 
+""" Faz a busca dentro do Json para ver se tem algum objeto/estabelecimento
+localizado no estado e municipio dado pelo user """
 
 def buscar_estabelecimentos():
     estado = input("Digite a sigla do estado (ex: SP): ").upper()
@@ -56,6 +61,7 @@ def buscar_estabelecimentos():
     else:
         print(f"Nenhum estabelecimento encontrado em {municipio}, {estado}.")
 
+""" Adiciona um novo objeto/estabelecimento dentro do Json """
 def adicionar_estabelecimento():
     novo_estabelecimento = {}
     for key in estabelecimentos_exemplo[0].keys():
@@ -65,18 +71,37 @@ def adicionar_estabelecimento():
     novo_estabelecimento["Estado"] = input("Digite a sigla do estado: ")
     estabelecimentos_exemplo.append(novo_estabelecimento)
     print("Estabelecimento adicionado com sucesso!")
-    
+
+""" Remove o objeto/estabelecimento dentro do Json """
 def remover_estabelecimento():
     nome = str(input("Qual o nome do estabeleciemento: "))
-    
+
     for i in estabelecimentos_exemplo:
         if nome.lower() == i["Nome"].lower():
             estabelecimentos_exemplo.remove(i)
             print(f"Estabelecimento {nome} removido com sucesso.")
             return
-    
+
     print(f"Estabelecimento {nome} não encontrado.")
 
+""" Atualiza os dados de um estabelecimento solicitado """
+def atualizar_estabelecimento():
+    nome = input("Digite o nome do estabelecimento que deseja atualizar: ")
+
+    for estabelecimento in estabelecimentos_exemplo:
+        if nome.lower() == estabelecimento["Nome"].lower():
+            print(f"Encontrado: {estabelecimento['Nome']}")
+            campo = input("Digite o campo que deseja atualizar: ")
+            if campo in estabelecimento:
+                valor = input(f"Digite o novo valor para {campo}: ")
+                estabelecimento[campo] = valor
+                print(f"{campo} atualizado para {valor}")
+                return
+            else:
+                print("Campo inválido.")
+                return
+
+    print(f"Estabelecimento {nome} não encontrado.")
 
 def main():
     while True:
@@ -90,6 +115,8 @@ def main():
             elif opcao == "3":
                 remover_estabelecimento()
             elif opcao == "4":
+                atualizar_estabelecimento()
+            elif opcao == "5":
                 print("Saindo do programa. Até logo!")
                 break
             else:
@@ -98,5 +125,6 @@ def main():
             print("\nSaindo do programa. Até logo!")
             break
 
+""" Roda o programa """
 if __name__ == "__main__":
     main()
