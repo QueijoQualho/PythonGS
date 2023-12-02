@@ -16,6 +16,9 @@ Este é um prototipo simples da aplicação web, sendo um programa que permite b
 Digitar corretamente as informações solicitadas para evitar erros.
 Ao adicionar um novo estabelecimento, preencha todas as informações necessárias.
 
+## Link do Video
+https://www.youtube.com/watch?v=8kpNJJwjEbY
+
 ## Grupo
 - 553705 - Eduardo Rodrigues Shiraga
 - 553724 - Giovani Shiraishi Borba
